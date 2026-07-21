@@ -1,26 +1,7 @@
-<main class="min-h-screen bg-stone-100 text-stone-900">
-  <header class="flex items-center justify-between border-b border-stone-200 bg-white px-6 py-4">
-    <div class="flex items-center gap-3">
-      <span class="grid size-9 place-items-center rounded-xl bg-violet-600 font-bold text-white">K</span>
-      <div>
-        <h1 class="font-semibold leading-tight">KanbanBoard</h1>
-        <p class="text-xs text-stone-500">Salvo neste navegador</p>
-      </div>
-    </div>
+<app-header />
 
-    <button class="rounded-xl bg-violet-600 px-4 py-2 text-sm font-semibold text-white hover:bg-violet-700">
-      + Nova etapa
-    </button>
-  </header>
+<app-main-container boardTitle="Quadro de estudos Angular">
+  <app-board-guide title="Desenvolvimento" type="doing-and-done" />
+</app-main-container>
 
-  <section class="p-6" aria-labelledby="board-title">
-    <div class="mb-6">
-      <p class="text-sm font-medium text-violet-600">Meu espaço de trabalho</p>
-      <h2 id="board-title" class="mt-1 text-3xl font-bold tracking-tight">Quadro de estudos Angular</h2>
-    </div>
-
-    <div class="grid gap-4">
-      <app-board-guide title="Desenvolvimento" type="doing-and-done" />
-    </div>
-  </section>
-</main>
+<app-footer />

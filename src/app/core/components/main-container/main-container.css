@@ -1,0 +1,35 @@
+.main-container {
+  min-height: 100%;
+  color: #1c1917;
+  background: #f5f5f4;
+}
+
+.workspace-header h2,
+.workspace-header p {
+  margin: 0;
+}
+
+.workspace {
+  padding: 1.5rem;
+}
+
+.workspace-header {
+  margin-bottom: 1.5rem;
+}
+
+.workspace-header p {
+  color: #7c3aed;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.workspace-header h2 {
+  margin-top: 0.25rem;
+  font-size: 1.875rem;
+  line-height: 1.2;
+}
+
+.workspace-content {
+  display: grid;
+  gap: 1rem;
+}

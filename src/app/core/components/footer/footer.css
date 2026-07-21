@@ -1,0 +1,14 @@
+.app-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #e7e5e4;
+  color: #78716c;
+  background: #fff;
+  font-size: 0.75rem;
+}
+
+.app-footer p {
+  margin: 0;
+}
