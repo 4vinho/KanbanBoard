@@ -1,6 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { BoardColumn, BoardGuideType } from '../models/board-column.model';
+import { BoardColumn } from '../models/board-column.model';
 
 const STORAGE_KEY = 'kanban-board:columns:v1';
 
@@ -51,25 +51,21 @@ export class BoardStorageService {
     }
 
     const candidate = value as Partial<StoredBoard>;
-    return candidate.version === 1 && Array.isArray(candidate.columns) && candidate.columns.every(
-      (column) => this.isBoardColumn(column),
-    );
-  }
-
-  private isBoardColumn(value: unknown): value is BoardColumn {
-    if (!value || typeof value !== 'object') {
-      return false;
-    }
-
-    const candidate = value as Partial<BoardColumn>;
     return (
-      typeof candidate.id === 'string' &&
-      typeof candidate.title === 'string' &&
-      this.isBoardGuideType(candidate.type)
-    );
-  }
+      candidate.version === 1 &&
+      Array.isArray(candidate.columns) &&
+      candidate.columns.every((column: unknown) => {
+        if (!column || typeof column !== 'object') {
+          return false;
+        }
 
-  private isBoardGuideType(value: unknown): value is BoardGuideType {
-    return value === 'doing-and-done' || value === 'done-only';
+        const candidateColumn = column as Partial<BoardColumn>;
+        return (
+          typeof candidateColumn.id === 'string' &&
+          typeof candidateColumn.title === 'string' &&
+          (candidateColumn.type === 'doing-and-done' || candidateColumn.type === 'done-only')
+        );
+      })
+    );
   }
 }
