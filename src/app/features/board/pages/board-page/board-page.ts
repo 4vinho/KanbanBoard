@@ -1,9 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { ZardButtonComponent } from '@/shared/components/button';
 import { ZardDialogService } from '@/shared/components/dialog';
 import { MainContainer } from '../../../../core/components/main-container/main-container';
-import { AddColumnDialog, NewBoardColumn } from '../../components/add-column-dialog/add-column-dialog';
+import { AddColumnDialog } from '../../components/add-column-dialog/add-column-dialog';
 import { BoardGuide } from '../../components/board-guide/board-guide';
+import { BoardStorageService } from '../../data-access/board-storage.service';
+import { BoardColumn } from '../../models/board-column.model';
 
 @Component({
   selector: 'app-board-page',
@@ -14,8 +16,13 @@ import { BoardGuide } from '../../components/board-guide/board-guide';
 })
 export class BoardPage {
   private readonly dialogService = inject(ZardDialogService);
+  private readonly storageService = inject(BoardStorageService);
 
-  protected readonly columns = signal<readonly (NewBoardColumn & { readonly id: string })[]>([]);
+  protected readonly columns = signal<readonly BoardColumn[]>(this.storageService.loadColumns());
+
+  constructor() {
+    effect(() => this.storageService.saveColumns(this.columns()));
+  }
 
   protected openAddColumnDialog(): void {
     this.dialogService.create<AddColumnDialog>({

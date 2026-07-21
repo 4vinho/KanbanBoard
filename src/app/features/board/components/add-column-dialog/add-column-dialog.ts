@@ -1,12 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { ZardInputComponent } from '@/shared/components/input';
 import { ZardSelectComponent, ZardSelectItemComponent } from '@/shared/components/select';
-import { BoardGuideType } from '../board-guide/board-guide';
-
-export interface NewBoardColumn {
-  readonly title: string;
-  readonly type: BoardGuideType;
-}
+import { BoardGuideType, NewBoardColumn } from '../../models/board-column.model';
 
 @Component({
   selector: 'app-add-column-dialog',

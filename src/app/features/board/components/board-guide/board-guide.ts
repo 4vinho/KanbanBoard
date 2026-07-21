@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-
-export type BoardGuideType = 'doing-and-done' | 'done-only';
+import { BoardGuideType } from '../../models/board-column.model';
 
 @Component({
   selector: 'app-board-guide',
