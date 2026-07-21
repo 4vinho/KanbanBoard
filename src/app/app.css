@@ -3,3 +3,8 @@
   grid-template-rows: auto 1fr auto;
   min-height: 100dvh;
 }
+
+.route-content {
+  min-width: 0;
+  min-height: 0;
+}

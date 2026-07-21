@@ -1,3 +1,11 @@
 <app-main-container boardTitle="Quadro de estudos Angular">
-  <app-board-guide title="Teste" type="doing-and-done" />
+  <div class="board-actions">
+    <button z-button type="button" (click)="openAddColumnDialog()">+ Nova coluna</button>
+  </div>
+
+  <div class="board-columns">
+    @for (column of columns(); track column.id) {
+      <app-board-guide [title]="column.title" [type]="column.type" />
+    }
+  </div>
 </app-main-container>

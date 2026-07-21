@@ -1,0 +1,23 @@
+<div class="dialog-form">
+  <label for="column-title">Título</label>
+  <input
+    z-input
+    id="column-title"
+    type="text"
+    placeholder="Ex.: Desenvolvimento"
+    maxlength="80"
+    [value]="title()"
+    (valueChange)="setTitle($event)"
+  />
+
+  <label for="column-type">Tipo da coluna</label>
+  <z-select
+    id="column-type"
+    zPlaceholder="Selecione o tipo"
+    [zValue]="type()"
+    (zSelectionChange)="setType($event)"
+  >
+    <z-select-item zValue="doing-and-done">Doing e Done</z-select-item>
+    <z-select-item zValue="done-only">Apenas Done</z-select-item>
+  </z-select>
+</div>

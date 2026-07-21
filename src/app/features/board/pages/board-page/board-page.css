@@ -2,3 +2,14 @@
   display: block;
   min-height: 100%;
 }
+
+.board-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.board-columns {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
