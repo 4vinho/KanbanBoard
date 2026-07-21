@@ -1,0 +1,19 @@
+<article class="guide">
+  <header class="guide-header">
+    <h3>{{ title() }}</h3>
+  </header>
+
+  <div class="guide-content">
+    @if (type() === 'doing-and-done') {
+      <section class="guide-lane" aria-label="Em andamento">
+        <h4>Doing</h4>
+        <p>Nenhuma história em andamento.</p>
+      </section>
+    }
+
+    <section class="guide-lane" aria-label="Concluído">
+      <h4>Done</h4>
+      <p>Nenhuma história concluída.</p>
+    </section>
+  </div>
+</article>
