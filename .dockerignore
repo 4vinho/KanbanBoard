@@ -1,0 +1,9 @@
+.angular
+.git
+.github
+.vscode
+backend
+dist
+node_modules
+coverage
+*.log

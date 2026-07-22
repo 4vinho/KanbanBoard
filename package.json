@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "dev": "docker compose up --build",
+    "dev:down": "docker compose down",
     "start": "ng serve",
     "start:api": "dotnet run --project backend/Kanban.Api",
     "start:redis": "docker compose up -d redis",

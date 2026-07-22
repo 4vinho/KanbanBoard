@@ -13,7 +13,7 @@ import {
 export class BoardRealtimeService {
   private readonly stateSubject = new ReplaySubject<BoardState>(1);
   private readonly connection: HubConnection = new HubConnectionBuilder()
-    .withUrl('http://localhost:5080/hubs/board')
+    .withUrl('/hubs/board')
     .withAutomaticReconnect()
     .build();
 
