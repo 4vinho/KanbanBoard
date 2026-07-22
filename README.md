@@ -4,16 +4,36 @@ Kanban em Angular com backend ASP.NET Core, atualização em tempo real por Sign
 
 ## Executar localmente
 
-Requisitos: Node.js, .NET 8 SDK e Docker.
+Requisito: Docker Desktop em execução.
 
 ```bash
 npm install
+npm run dev
+```
+
+O comando constrói e inicia três containers na rede `desafio-pl_kanban-network`:
+
+- frontend em `http://localhost:4200`;
+- API em `http://localhost:5080`;
+- Redis em `localhost:6379`.
+
+Os logs permanecem no terminal. Para encerrar o ambiente em outro terminal:
+
+```bash
+npm run dev:down
+```
+
+Redis e SQLite usam volumes nomeados, então os dados sobrevivem à recriação dos containers. O frontend encaminha `/api` e `/hubs` para a API pela rede Docker.
+
+## Execução sem containers
+
+Com Node.js e .NET 8 instalados, também é possível executar os processos separadamente:
+
+```bash
 npm run start:redis
 npm run start:api
 npm start
 ```
-
-O Angular abre em `http://localhost:4200` e a API em `http://localhost:5080`. O SQLite é criado automaticamente em `backend/Kanban.Api/data/kanban.db`.
 
 O Redis é opcional durante o desenvolvimento. Sem ele, a API mantém o estado em memória e restaura o último snapshot salvo no SQLite.
 
