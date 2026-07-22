@@ -11,6 +11,7 @@ builder.Services.AddCors(options =>
         .AllowCredentials());
 });
 builder.Services.AddSingleton<BoardStore>();
+builder.Services.AddSingleton<RedisBoardCache>();
 builder.Services.AddHostedService<BoardSnapshotWorker>();
 
 var app = builder.Build();

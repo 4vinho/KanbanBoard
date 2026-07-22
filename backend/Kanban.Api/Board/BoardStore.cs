@@ -3,7 +3,9 @@ using Microsoft.Data.Sqlite;
 
 namespace Kanban.Api.Board;
 
-public sealed class BoardStore(IConfiguration configuration)
+public sealed class BoardStore(
+    IConfiguration configuration,
+    RedisBoardCache cache)
 {
     private readonly SemaphoreSlim gate = new(1, 1);
     private readonly JsonSerializerOptions jsonOptions = new(JsonSerializerDefaults.Web);
@@ -29,13 +31,20 @@ public sealed class BoardStore(IConfiguration configuration)
             """;
         await create.ExecuteNonQueryAsync(cancellationToken);
 
+        var cachedState = await cache.ReadAsync();
+        if (cachedState is not null)
+        {
+            state = cachedState;
+            return;
+        }
+
         var read = connection.CreateCommand();
         read.CommandText = "SELECT payload FROM snapshots WHERE id = 1";
         var payload = await read.ExecuteScalarAsync(cancellationToken) as string;
-        if (payload is not null)
-        {
-            state = JsonSerializer.Deserialize<BoardState>(payload, jsonOptions) ?? BoardState.Empty;
-        }
+        if (payload is null) return;
+
+        state = JsonSerializer.Deserialize<BoardState>(payload, jsonOptions) ?? BoardState.Empty;
+        await cache.WriteAsync(state);
     }
 
     public Task<BoardState> AddColumnAsync(AddColumnCommand command, CancellationToken cancellationToken) =>
@@ -85,6 +94,7 @@ public sealed class BoardStore(IConfiguration configuration)
         try
         {
             state = mutation(state);
+            await cache.WriteAsync(state);
             Interlocked.Exchange(ref dirty, 1);
             return state;
         }
