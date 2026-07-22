@@ -3,9 +3,22 @@
     <button z-button type="button" (click)="openAddColumnDialog()">+ Nova coluna</button>
   </div>
 
-  <div class="board-columns">
-    @for (column of columns(); track column.id) {
-      <app-board-guide [title]="column.title" [type]="column.type" />
-    }
-  </div>
+  @if (board$ | async; as columns) {
+    <div cdkDropListGroup class="board-columns">
+      @for (column of columns; track column.id) {
+        <app-board-guide
+          [columnId]="column.id"
+          [title]="column.title"
+          [type]="column.type"
+          [doingTasks]="column.doingTasks"
+          [doneTasks]="column.doneTasks"
+          (addTask)="openAddTaskDialog($event.columnId, $event.status)"
+          (taskDrop)="moveTask($event)"
+          (checklistToggle)="toggleChecklist($event)"
+        />
+      } @empty {
+        <p class="empty-board">Crie uma coluna para começar seu quadro.</p>
+      }
+    </div>
+  }
 </app-main-container>

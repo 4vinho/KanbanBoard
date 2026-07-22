@@ -6,14 +6,62 @@
   <div class="guide-content">
     @if (type() === 'doing-and-done') {
       <section class="guide-lane" aria-label="Em andamento">
-        <h4>Doing</h4>
-        <p>Nenhuma história em andamento.</p>
+        <header class="lane-header">
+          <h4>Doing</h4>
+          <button z-button zType="ghost" zSize="sm" type="button" (click)="requestTask('doing')">
+            + Tarefa
+          </button>
+        </header>
+
+        <div
+          cdkDropList
+          class="task-list"
+          [id]="laneId('doing')"
+          [cdkDropListData]="doingTasks()"
+          (cdkDropListDropped)="dropTask($event, 'doing')"
+        >
+          @for (task of doingTasks(); track task.id) {
+            <div cdkDrag class="task-drag" [cdkDragData]="task">
+              <button cdkDragHandle class="drag-handle" type="button" aria-label="Arrastar tarefa">⋮⋮</button>
+              <app-task-card
+                [task]="task"
+                (checklistToggle)="toggleChecklist(task.id, $event.itemId, $event.completed)"
+              />
+            </div>
+          } @empty {
+            <p class="empty-lane">Arraste ou adicione uma tarefa.</p>
+          }
+        </div>
       </section>
     }
 
     <section class="guide-lane" aria-label="Concluído">
-      <h4>Done</h4>
-      <p>Nenhuma história concluída.</p>
+      <header class="lane-header">
+        <h4>Done</h4>
+        <button z-button zType="ghost" zSize="sm" type="button" (click)="requestTask('done')">
+          + Tarefa
+        </button>
+      </header>
+
+      <div
+        cdkDropList
+        class="task-list"
+        [id]="laneId('done')"
+        [cdkDropListData]="doneTasks()"
+        (cdkDropListDropped)="dropTask($event, 'done')"
+      >
+        @for (task of doneTasks(); track task.id) {
+          <div cdkDrag class="task-drag" [cdkDragData]="task">
+            <button cdkDragHandle class="drag-handle" type="button" aria-label="Arrastar tarefa">⋮⋮</button>
+            <app-task-card
+              [task]="task"
+              (checklistToggle)="toggleChecklist(task.id, $event.itemId, $event.completed)"
+            />
+          </div>
+        } @empty {
+          <p class="empty-lane">Arraste ou adicione uma tarefa.</p>
+        }
+      </div>
     </section>
   </div>
 </article>
