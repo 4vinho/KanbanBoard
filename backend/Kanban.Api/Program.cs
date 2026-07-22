@@ -13,12 +13,14 @@ builder.Services.AddCors(options =>
 builder.Services.AddSingleton<BoardStore>();
 builder.Services.AddSingleton<RedisBoardCache>();
 builder.Services.AddHostedService<BoardSnapshotWorker>();
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
 app.UseCors();
 app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
 app.MapGet("/api/board", (BoardStore store) => Results.Ok(store.Get()));
+app.MapHub<BoardHub>("/hubs/board");
 
 await app.Services.GetRequiredService<BoardStore>().InitializeAsync();
 app.Run();
