@@ -1,10 +1,12 @@
 # KanbanBoard — Especificação do projeto
 
+> A arquitetura evoluiu para uma aplicação cliente-servidor. O backend ASP.NET Core é a fonte da verdade, distribui mudanças por SignalR, mantém o estado quente no Redis e salva snapshots no SQLite.
+
 ## 1. Visão do produto
 
 O KanbanBoard será uma aplicação web para organização pessoal de trabalho em um quadro Kanban. O projeto será desenvolvido em Angular com foco em aprendizado prático da linguagem e do framework.
 
-Toda a experiência funcionará localmente: os quadros e suas tarefas serão persistidos exclusivamente no `localStorage` do navegador, sem cadastro, login, API ou banco de dados externo.
+Toda a experiência funcionará localmente, com o Angular conectado a uma API ASP.NET Core e persistência sem servidor externo de banco de dados.
 
 ## 2. Missão
 
@@ -81,19 +83,20 @@ progresso = tarefas concluídas / total de tarefas
 
 Uma história sem tarefas terá progresso de `0%`.
 
-## 4. Persistência local
+## 4. Persistência
 
-- Todos os dados serão salvos no `localStorage` após cada alteração relevante.
-- Os dados serão restaurados automaticamente ao abrir a aplicação.
+- O backend será a fonte da verdade do quadro.
+- Cada alteração atualizará o estado quente no Redis.
+- O estado será salvo periodicamente em um arquivo SQLite embutido.
+- Os dados serão restaurados automaticamente ao iniciar a API.
 - O estado terá uma versão de schema para permitir migrações futuras.
 - Dados inválidos ou corrompidos não deverão impedir a aplicação de abrir.
-- A aplicação não sincronizará dados entre navegadores, dispositivos ou perfis.
-- Limpar os dados do navegador removerá os quadros permanentemente.
+- Clientes conectados receberão alterações em tempo real pelo SignalR.
 
-Chave sugerida:
+Chave do Redis:
 
 ```text
-kanban-board:v1
+kanban:board:v2
 ```
 
 ## 5. Modelo inicial de dados
@@ -169,9 +172,9 @@ Requisitos de experiência:
 ## 8. Fora do escopo inicial
 
 - Login e criação de contas.
-- Backend, API ou banco de dados remoto.
-- Colaboração em tempo real.
-- Sincronização entre dispositivos.
+- Autenticação e autorização.
+- Colaboração com identificação de usuários.
+- Sincronização entre instâncias diferentes da API.
 - Anexos e upload de arquivos.
 - Comentários, responsáveis, etiquetas e prazos.
 - Histórico completo de alterações.
@@ -199,4 +202,3 @@ O MVP estará completo quando o usuário conseguir:
 - Múltiplos quadros com navegação dedicada.
 - Desfazer e refazer ações.
 - Migração opcional para persistência remota.
-

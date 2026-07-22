@@ -4,6 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:api": "dotnet run --project backend/Kanban.Api",
+    "start:redis": "docker compose up -d redis",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

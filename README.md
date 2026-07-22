@@ -1,5 +1,28 @@
 # DesafioPL
 
+Kanban em Angular com backend ASP.NET Core, atualização em tempo real por SignalR, estado quente no Redis e snapshots periódicos em SQLite.
+
+## Executar localmente
+
+Requisitos: Node.js, .NET 8 SDK e Docker.
+
+```bash
+npm install
+npm run start:redis
+npm run start:api
+npm start
+```
+
+O Angular abre em `http://localhost:4200` e a API em `http://localhost:5080`. O SQLite é criado automaticamente em `backend/Kanban.Api/data/kanban.db`.
+
+O Redis é opcional durante o desenvolvimento. Sem ele, a API mantém o estado em memória e restaura o último snapshot salvo no SQLite.
+
+```text
+Angular -> SignalR -> ASP.NET Core -> Redis
+                              |
+                              +-> SQLite a cada 30 segundos
+```
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.19.
 
 ## Development server
