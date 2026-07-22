@@ -1,0 +1,42 @@
+<div class="task-form">
+  <label for="task-title">Título da tarefa</label>
+  <input
+    z-input
+    id="task-title"
+    type="text"
+    maxlength="120"
+    placeholder="Ex.: Criar tela de autenticação"
+    [value]="title()"
+    (valueChange)="setTitle($event)"
+  />
+
+  <div class="checklist-header">
+    <span>Checklist</span>
+    <button z-button zType="outline" zSize="sm" type="button" (click)="addChecklistItem()">
+      + Item
+    </button>
+  </div>
+
+  @for (item of checklist(); track $index) {
+    <div class="checklist-row">
+      <input
+        z-input
+        type="text"
+        [attr.aria-label]="'Item ' + ($index + 1)"
+        placeholder="Descrição do item"
+        [value]="item"
+        (valueChange)="setChecklistItem($index, $event)"
+      />
+      <button
+        z-button
+        zType="ghost"
+        zSize="sm"
+        type="button"
+        [attr.aria-label]="'Remover item ' + ($index + 1)"
+        (click)="removeChecklistItem($index)"
+      >
+        Remover
+      </button>
+    </div>
+  }
+</div>

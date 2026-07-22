@@ -1,0 +1,21 @@
+<article class="task-card">
+  <h5>{{ task().title }}</h5>
+
+  @if (task().checklist.length) {
+    <div class="checklist">
+      @for (item of task().checklist; track item.id) {
+        <z-checkbox
+          [zId]="'checklist-' + item.id"
+          [ngModel]="item.completed"
+          (checkChange)="toggleChecklist(item.id, $event)"
+        >
+          <span [class.completed]="item.completed">{{ item.description }}</span>
+        </z-checkbox>
+      }
+    </div>
+
+    <p class="progress">{{ completedItems() }} de {{ task().checklist.length }} concluídas</p>
+  } @else {
+    <p class="progress">Sem checklist</p>
+  }
+</article>

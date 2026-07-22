@@ -1,0 +1,26 @@
+.task-form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+label,
+.checklist-header span {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.checklist-header,
+.checklist-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checklist-header {
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.checklist-row input {
+  flex: 1;
+}
