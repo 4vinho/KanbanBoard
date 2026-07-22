@@ -2,6 +2,12 @@
 
 Kanban em Angular com backend ASP.NET Core, atualização em tempo real por SignalR, estado quente no Redis e snapshots periódicos em SQLite.
 
+## Documentação
+
+- [Arquitetura](docs/ARCHITECTURE.md): componentes, responsabilidades, persistência e decisões técnicas.
+- [Fluxos](docs/FLOWS.md): conexão, comandos, broadcasts, snapshots e recuperação.
+- [Desenvolvimento](docs/DEVELOPMENT.md): execução, testes, contratos e troubleshooting.
+
 ## Executar localmente
 
 Requisito: Docker Desktop em execução.
